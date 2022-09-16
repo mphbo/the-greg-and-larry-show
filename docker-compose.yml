@@ -2,7 +2,23 @@ version: "3"
 services:
   web:
     build:
-      context: .
+      context: ./the-greg-and-larry-show-web-app
       dockerfile: Dockerfile
+    container_name: web
+    restart: always
     ports:
       - "80:3000"
+  api:
+    build:
+      context: ./the-greg-and-larry-show-api
+    ports:
+      - 7004:7004
+    depends_on:
+      - db
+  db:
+    image: "mcr.microsoft.com/azure-sql-edge"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "tgalS59471!"
+    ports:
+      - 1433:1433

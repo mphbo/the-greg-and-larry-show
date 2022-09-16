@@ -1,23 +1,21 @@
-# docker-compose.yml
-
 version: "3"
-
 services:
   web:
     build:
       context: ./the-greg-and-larry-show-web-app
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: web
     restart: always
-    # volumes:
-    #   - ./the-greg-and-larry-show-web-app/:/app
-    #   - /app/node_modules
-    #   - /app/.next
+    volumes:
+      - ./the-greg-and-larry-show-web-app/:/app
+      - /app/node_modules
+      - /app/.next
     ports:
       - 3000:3000
   api:
     build:
       context: ./the-greg-and-larry-show-api
+      dockerfile: Dockerfile.dev
     ports:
       - 7004:7004
       - 5176:5176
