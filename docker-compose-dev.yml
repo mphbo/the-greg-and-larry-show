@@ -3,23 +3,24 @@
 version: "3"
 
 services:
-  # web:
-  #   build:
-  #     context: ./the-greg-and-larry-show-web-app
-  #     dockerfile: Dockerfile.dev
-  #   container_name: web
-  #   restart: always
-  #   volumes:
-  #     - ./the-greg-and-larry-show-web-app/:/app
-  #     - /app/node_modules
-  #     - /app/.next
-  #   ports:
-  #     - 3000:3000
+  web:
+    build:
+      context: ./the-greg-and-larry-show-web-app
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    # volumes:
+    #   - ./the-greg-and-larry-show-web-app/:/app
+    #   - /app/node_modules
+    #   - /app/.next
+    ports:
+      - 3000:3000
   api:
     build:
       context: ./the-greg-and-larry-show-api
     ports:
-      - 8000:80
+      - 7004:7004
+      - 5176:5176
     depends_on:
       - db
   db:
