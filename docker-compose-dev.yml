@@ -1,30 +1,28 @@
 version: "3"
 services:
-  web:
-    build:
-      context: ./the-greg-and-larry-show-web-app
-      dockerfile: Dockerfile.dev
-    container_name: web
-    restart: always
-    volumes:
-      - ./the-greg-and-larry-show-web-app/:/app
-      - /app/node_modules
-      - /app/.next
-    ports:
-      - 3000:3000
-  api:
-    build:
-      context: ./the-greg-and-larry-show-api
-      dockerfile: Dockerfile.dev
-    ports:
-      - 7004:7004
-      - 5176:5176
-    depends_on:
-      - db
   db:
     image: "mcr.microsoft.com/azure-sql-edge"
     environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "tgalS59471!"
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1!
+  nginx:
+    depends_on:
+      - api
+      - web
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
     ports:
-      - 1433:1433
+      - 3000:80
+  web:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./web
+    restart: always
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    environment:
+      - ASPNETCORE_HTTP_PORT=http://+:5001
+      - ASPNETCORE_URLS=http://+:5000
