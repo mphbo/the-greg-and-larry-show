@@ -20,6 +20,8 @@ services:
       context: ./web
     restart: always
   api:
+    depends_on:
+      - db
     build:
       dockerfile: Dockerfile
       context: ./api
