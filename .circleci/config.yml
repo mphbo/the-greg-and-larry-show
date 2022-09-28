@@ -5,6 +5,7 @@ executors:
       WEB_IMAGE_NAME: mphbo777/greg-and-larry-web
       NGINX_IMAGE_NAME: mphbo777/greg-and-larry-nginx
       API_IMAGE_NAME: mphbo777/greg-and-larry-api
+      
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
