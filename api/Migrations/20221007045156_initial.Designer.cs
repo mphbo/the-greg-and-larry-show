@@ -12,8 +12,8 @@ using the_greg_and_larry_show_api.Data;
 namespace the_greg_and_larry_show_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220902011800_changedPlayersToUsers")]
-    partial class changedPlayersToUsers
+    [Migration("20221007045156_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
