@@ -28,7 +28,7 @@ const Registration: NextPage = () => {
 
   const handleRegister = (formData: any) => {
     axios
-      .post("https://localhost:7004/Auth/register", formData)
+      .post("/api/users", formData)
       .then((result) => {
         console.log("result:", result);
       })
@@ -36,6 +36,8 @@ const Registration: NextPage = () => {
         console.log("error:", e);
       });
   };
+
+  axios.get("/api/users").then((result) => console.log(result));
 
   console.log(formData);
 
