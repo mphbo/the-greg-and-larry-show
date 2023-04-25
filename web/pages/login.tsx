@@ -15,7 +15,7 @@ const Login: NextPage = () => {
       </Head>
       <Container maxWidth="md">
         <Typography>Login</Typography>
-        <Grid container xs={12} spacing={2}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField label="Email" />
           </Grid>

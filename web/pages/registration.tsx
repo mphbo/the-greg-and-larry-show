@@ -6,6 +6,7 @@ import { Container } from "@mui/system";
 import Link from "next/link";
 import { useState } from "react";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 const defaultFormData = {
   firstName: "",
@@ -28,16 +29,34 @@ const Registration: NextPage = () => {
 
   const handleRegister = (formData: any) => {
     axios
-      .post("/api/users", formData)
-      .then((result) => {
-        console.log("result:", result);
+      .post("/api/auth/register", formData)
+      .then(({ data: { result } }) => {
+        signIn("credentials", {
+          redirect: false,
+          email: formData.email,
+          password: formData.password,
+        }).then((result) => {
+          if (result?.error) {
+            // setServerError(result.error);
+            console.log("error:", result.error);
+          } else {
+            // router.push("/play");
+          }
+        });
       })
-      .catch((e) => {
-        console.log("error:", e);
-      });
+      .catch
+      // ({
+      //   response: {
+      //     data: { message },
+      //   },
+      // }) => setServerError(message)
+      ();
   };
 
-  axios.get("/api/users").then((result) => console.log(result));
+  axios
+    .get("/api/users")
+    .then((result) => console.log(result))
+    .catch((e) => console.log("error getting users:", e));
 
   console.log(formData);
 

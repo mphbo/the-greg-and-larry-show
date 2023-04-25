@@ -8,7 +8,6 @@ const nextConfig = {
     PGDATABASE: process.env.PGDATABASE,
     PGPASSWORD: process.env.PGPASSWORD,
     PGPORT: process.env.PGPORT,
-    PGCONNECTIONSTRING: process.env.PGCONNECTIONSTRING,
   },
 };
 

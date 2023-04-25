@@ -4,7 +4,6 @@ interface IKeys {
   pgDatabase: string;
   pgPassword: string;
   pgPort: number | undefined;
-  pgConnectionString: string | undefined;
   // cloudName: string;
   // cloudApiKey: string;
   // cloudApiSecret: string;
@@ -23,7 +22,6 @@ export default <IKeys>{
   pgDatabase: process.env.PGDATABASE,
   pgPassword: process.env.PGPASSWORD,
   pgPort: process.env.PGPORT,
-  pgConnectionString: process.env.PGCONNECTIONSTRING,
 
   // cloudName: process.env.NEXT_PUBLIC_CLOUD_NAME,
   // cloudApiKey: process.env.CLOUD_API_KEY,
