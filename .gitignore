@@ -1,2 +1,4 @@
-web/node-modules/
-web/.next/
+node_modules/
+.next/
+.swc/
+.*.env
