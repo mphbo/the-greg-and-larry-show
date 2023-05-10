@@ -4,8 +4,55 @@ import styles from "../styles/Registration.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+const defaultFormData = {
+  email: "",
+  password: "",
+};
+
+enum EFormData {
+  Email = "email",
+  Password = "password",
+}
 
 const Login: NextPage = () => {
+  const [formData, setFormData] = useState(defaultFormData);
+  const router = useRouter();
+
+  const handleLogin = (formData: any) => {
+    signIn("credentials", {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    }).then((result) => {
+      if (result?.error) {
+        // setServerError(result.error);
+        console.log("error:", result.error);
+      } else {
+        router.push("/play");
+      }
+    });
+    // axios
+    //   .post("/api/auth/register", formData)
+    //   .then(({ data: { result } }) => {
+    //   })
+    //   .catch
+    // ({
+    //   response: {
+    //     data: { message },
+    //   },
+    // }) => setServerError(message)
+    // ();
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,13 +64,26 @@ const Login: NextPage = () => {
         <Typography>Login</Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField label="Email" />
+            <TextField
+              label="Email"
+              value={formData.email}
+              onChange={(e) => handleChange(EFormData.Email, e.target.value)}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField type="password" label="Password" />
+            <TextField
+              type="password"
+              label="Password"
+              value={formData.password}
+              onChange={(e) => handleChange(EFormData.Password, e.target.value)}
+            />
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained" fullWidth>
+            <Button
+              onClick={() => handleLogin(formData)}
+              variant="contained"
+              fullWidth
+            >
               Login
             </Button>
           </Grid>

@@ -6,6 +6,7 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 import { useEffect, useState } from "react";
 import { SoundCloudWidget } from "../components/SoundCloudWidget";
 import { Button, Dialog, Drawer } from "@mui/material";
+import axios from "axios";
 
 const Play: NextPage = () => {
   const [musicPlayer, setMusicPlayer] = useState(false);
@@ -16,7 +17,11 @@ const Play: NextPage = () => {
     codeUrl: "assets/the-greg-and-larry-show-webgl.wasm",
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios.get("/api/users").then((result) => {
+      console.log("users:", result);
+    });
+  }, []);
 
   return (
     <div className={styles.container}>

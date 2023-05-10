@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { SoundCloudWidget } from "../components/SoundCloudWidget";
 import { Button } from "@mui/material";
 import Link from "next/link";
+import axios from "axios";
 
 const Home: NextPage = () => {
   // const [playMusic, setPlayMusic] = useState(false);
@@ -18,7 +19,11 @@ const Home: NextPage = () => {
     codeUrl: "assets/the-greg-and-larry-show-webgl.wasm",
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios.get("/api/users").then((result) => {
+      console.log("users:", result);
+    });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -28,8 +33,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <div>{playMusic && <SoundCloudWidget />}</div> */}
-      <Link href="/play">
-        <Button>Play Game</Button>
+      <Link href="/login">
+        <Button>Login</Button>
       </Link>
     </div>
   );
