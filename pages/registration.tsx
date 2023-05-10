@@ -16,6 +16,14 @@ const defaultFormData = {
   passwordConfirmation: "",
 };
 
+enum EFormData {
+  FirstName = "firstName",
+  LastName = "lastName",
+  Email = "email",
+  Password = "password",
+  PasswordConfirmation = "passwordConfirmation",
+}
+
 const Registration: NextPage = () => {
   const [formData, setFormData] = useState(defaultFormData);
 
@@ -53,13 +61,6 @@ const Registration: NextPage = () => {
       ();
   };
 
-  axios
-    .get("/api/users")
-    .then((result) => console.log(result))
-    .catch((e) => console.log("error getting users:", e));
-
-  console.log(formData);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -69,32 +70,34 @@ const Registration: NextPage = () => {
       </Head>
       <Container maxWidth="md">
         <Typography>Register</Typography>
-        <Grid container xs={12} spacing={2}>
+        <Grid container item xs={12} spacing={2}>
           <Grid item xs={6}>
             <TextField
               value={formData.firstName}
-              onChange={(e) => handleChange("firstName", e.target.value)}
+              onChange={(e) =>
+                handleChange(EFormData.FirstName, e.target.value)
+              }
               label="First name"
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               value={formData.lastName}
-              onChange={(e) => handleChange("lastName", e.target.value)}
+              onChange={(e) => handleChange(EFormData.LastName, e.target.value)}
               label="Last name"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               value={formData.email}
-              onChange={(e) => handleChange("email", e.target.value)}
+              onChange={(e) => handleChange(EFormData.Email, e.target.value)}
               label="Email"
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               value={formData.password}
-              onChange={(e) => handleChange("password", e.target.value)}
+              onChange={(e) => handleChange(EFormData.Password, e.target.value)}
               type="password"
               label="Password"
             />
@@ -103,7 +106,7 @@ const Registration: NextPage = () => {
             <TextField
               value={formData.passwordConfirmation}
               onChange={(e) =>
-                handleChange("passwordConfirmation", e.target.value)
+                handleChange(EFormData.PasswordConfirmation, e.target.value)
               }
               type="password"
               label="Re-enter password"
